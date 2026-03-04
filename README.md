@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BudgetIQ Monthly Budget Tracker
 
-## Getting Started
+Next.js app with Neon Postgres persistence for monthly budgets and expenses.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Month navigation with previous/next arrows
+- Editable monthly budget
+- Budget progress bar (green → amber → red)
+- Donut chart for category spending
+- Add expense form (name, amount, category)
+- Expense list with delete action
+- Sidebar with category totals and remaining balance
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js App Router
+- TypeScript
+- Neon Postgres (`@neondatabase/serverless`)
+- Recharts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Setup
 
-## Learn More
+1. Install dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+	```bash
+	npm install
+	```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Create your environment file from the sample:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+	```bash
+	copy .env.example .env.local
+	```
 
-## Deploy on Vercel
+3. Set `DATABASE_URL` in `.env.local` using your Neon connection string.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Start the app:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+	```bash
+	npm run dev
+	```
+
+5. Open http://localhost:3000.
+
+## Database
+
+- API routes auto-create required tables on first request.
+- Reference schema is in `db/schema.sql`.
+
+## API Endpoints
+
+- `GET /api/budget?month=YYYY-MM`
+- `PUT /api/budget`
+- `GET /api/expenses?month=YYYY-MM`
+- `POST /api/expenses`
+- `DELETE /api/expenses/:id`
+- `GET /api/insights?month=YYYY-MM`

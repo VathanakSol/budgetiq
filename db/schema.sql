@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS budgets (
+  month_key TEXT PRIMARY KEY,
+  amount DOUBLE PRECISION NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS expenses (
+  id BIGSERIAL PRIMARY KEY,
+  month_key TEXT NOT NULL,
+  name TEXT NOT NULL,
+  amount DOUBLE PRECISION NOT NULL CHECK (amount > 0),
+  category TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS expenses_month_key_idx ON expenses (month_key);
