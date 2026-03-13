@@ -6,9 +6,24 @@ jobs:
       - image: cimg/node:20.5
     steps:
       - checkout
-      - run: npm install
-      - run: npm run lint
-      - run: npm run build
+      - restore_cache:
+          keys:
+            - v1-deps-{{ checksum "package-lock.json" }}
+            - v1-deps-
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - save_cache:
+          paths:
+            - node_modules
+            - ~/.npm
+          key: v1-deps-{{ checksum "package-lock.json" }}
+      - run:
+          name: Run lint
+          command: npm run lint
+      - run:
+          name: Build
+          command: npm run build
 
 workflows:
   build_and_test:
