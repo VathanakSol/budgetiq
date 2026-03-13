@@ -2,7 +2,7 @@
 
 Next.js app with Neon Postgres persistence for monthly budgets and expenses.
 
-## Features
+## Feature
 
 - Month navigation with previous/next arrows
 - Editable monthly budget
